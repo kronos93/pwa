@@ -1,14 +1,17 @@
 {
+    "lang": "es-MX",
     "name": "Progessive Web App - Demo",
-    "short_name": "PWA - Demo",
     "description": "Demp de una aplicación web progresiva",
+    "short_name": "PWA - Demo",
+
     "background_color": "#F7DF1E",
     "theme_color": "#000",
+
     "orientation": "portrait",
+
     "display": "standalone",
-    "start_url": "./?utm=homescreen",
+    "start_url": "./?utm_source=homescreen",
     "scope": "./",
-    "lang": "es-MX",
     "icons": [{
             "src": "./img/icon_1024x1024.png",
             "sizes": "1024x1024",
