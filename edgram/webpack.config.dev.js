@@ -1,11 +1,13 @@
-const webpack = require('webpack'),
-  path = require('path'),
-  srcDir = path.resolve( __dirname, 'src' ),
-  publicDir = path.resolve( __dirname, 'public' ),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  ReloadPlugin = require('reload-html-webpack-plugin')
+import webpack from 'webpack';
+import { resolve, join } from 'path'; //http://tips.tutorialhorizon.com/2017/05/01/path-join-vs-path-resolve-in-node-js/
 
-module.exports = {
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ReloadPlugin from 'reload-html-webpack-plugin';
+
+const srcDir = resolve(__dirname, 'src');
+const publicDir = resolve(__dirname, 'public');
+
+export default {
   context: srcDir,
   devtool: 'source-map',
   entry: {
@@ -45,7 +47,7 @@ module.exports = {
         test: /\.scss$/,
         use: [
           'style-loader',
-	        'css-loader',
+          'css-loader',
           'resolve-url-loader',
           'sass-loader?sourceMap'
         ]
@@ -68,12 +70,12 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new ReloadPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join(srcDir, 'template.html'),
+      template: join(srcDir, 'template.html'),
       filename: 'index.html',
       chunks: ['script']
     }),
     new HtmlWebpackPlugin({
-      template: path.join(srcDir, 'template.html'),
+      template: join(srcDir, 'template.html'),
       filename: 'another.html',
       chunks: ['another_script']
     })
