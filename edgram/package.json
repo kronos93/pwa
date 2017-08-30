@@ -8,12 +8,12 @@
     "ie > 10"
   ],
   "scripts": {
-    "dev": "webpack -d --watch --colors",
-    "prod": "webpack -p",
+    "dev": "webpack -d --env.prod --watch --colors",
+    "prod": "webpack -p --env.prod",
     "clean": "rimraf \"./public/*\"",
-    "build": "npm run clean && webpack -p",
-    "preview": "npm run build && webpack-dev-server --colors",
-    "start": "webpack-dev-server --colors --config webpack.config.babel.dev.js"
+    "build": "npm run clean && webpack -p --env.prod",
+    "preview": "npm run build && webpack-dev-server --env.prod --colors",
+    "start": "webpack-dev-server --colors"
   },
   "author": "Jonathan MirCha <jonmircha@gmail.com>",
   "license": "MIT",
