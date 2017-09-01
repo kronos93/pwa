@@ -34,34 +34,60 @@ export default {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: 'babel-loader',
       },
       {
         test: /\.json$/,
         exclude: /node_modules/,
-        use: 'json-loader'
+        use: 'json-loader',
       },
-      {
+      { //https://webpack.js.org/loaders/sass-loader/
         test: /\.scss$/,
         use: [
-          'style-loader',
-          'css-loader',
-          'resolve-url-loader',
-          'sass-loader?sourceMap'
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+            }
+          },
+          {
+            loader: 'resolve-url-loader',
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            }
+          },
         ]
       },
       {
         test: /\.(jpe?g|png|gif|svg|webp)$/i,
         use: [
-          'file-loader?name=[path][name].[ext]',
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            }
+          },
           'image-webpack-loader?bypassOnDebug'
         ]
       },
       {
         test: /\.(ttf|eot|woff2?|mp4|mp3|txt|xml)$/,
-        use: 'file-loader?name=[path][name].[ext]'
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            }
+          },
+        ]
       }
     ]
   },
@@ -70,14 +96,14 @@ export default {
     new webpack.NamedModulesPlugin(),
     new ReloadPlugin(),
     new HtmlWebpackPlugin({
-      template: join(srcDir, 'template.html'),
+      template: './template.html',
       filename: 'index.html',
       chunks: ['script']
     }),
     new HtmlWebpackPlugin({
-      template: join(srcDir, 'template.html'),
+      template: './template.html',
       filename: 'another.html',
       chunks: ['another_script']
     })
   ]
-}
+};
