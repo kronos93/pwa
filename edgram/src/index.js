@@ -1,3 +1,4 @@
+console.clear();
 import css from './style.scss'
 import { suma } from './components/suma.js'
 import resta from './components/resta.js'
@@ -25,3 +26,7 @@ console.log(
   suma(15, 35),
   resta(30, 15)
 )
+
+if(module.hot){
+  module.hot.accept();
+}

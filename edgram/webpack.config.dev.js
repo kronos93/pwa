@@ -1,92 +1,87 @@
-import webpack from 'webpack';
-import { resolve, join } from 'path'; //http://tips.tutorialhorizon.com/2017/05/01/path-join-vs-path-resolve-in-node-js/
+import webpack from "webpack";
+import { resolve, join } from "path"; //http://tips.tutorialhorizon.com/2017/05/01/path-join-vs-path-resolve-in-node-js/
 
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ReloadPlugin from 'reload-html-webpack-plugin';
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import ReloadPlugin from "reload-html-webpack-plugin";
 
-const srcDir = resolve(__dirname, 'src');
-const publicDir = resolve(__dirname, 'public');
+const srcDir = resolve(__dirname, "src");
+const publicDir = resolve(__dirname, "public");
 
 export default {
   context: srcDir,
-  devtool: 'source-map',
+  devtool: "source-map",
   entry: {
-    script: './index.js',
-    another_script: './another.js'
+    script: "./index.js",
+    another_script: "./another.js"
   },
   output: {
     path: publicDir,
-    filename: '[name].js',
-    publicPath: './',
-    sourceMapFilename: 'main.map'
-  },
-  devServer: {
-    contentBase: srcDir,
-    publicPath: '/',
-    historyApiFallback: true,
-    compress: true,
-    open: true,
-    hot: true,
-    stats: 'errors-only',
-    port: 3000,
-    openPage: ''
+    filename: "[name].js",
+    publicPath: "./",
+    sourceMapFilename: "main.map"
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: "babel-loader"
       },
       {
         test: /\.json$/,
         exclude: /node_modules/,
-        use: 'json-loader',
+        use: "json-loader"
       },
-      { //https://webpack.js.org/loaders/sass-loader/
+      {
+        //https://webpack.js.org/loaders/sass-loader/
         test: /\.scss$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: "style-loader"
           },
           {
             loader: "css-loader",
             options: {
-              sourceMap: true,
+              sourceMap: true
             }
           },
           {
-            loader: 'resolve-url-loader',
+            loader: "resolve-url-loader"
           },
           {
-            loader: 'sass-loader',
+            loader: "sass-loader",
             options: {
-              sourceMap: true,
+              sourceMap: true
             }
-          },
+          }
         ]
       },
       {
         test: /\.(jpe?g|png|gif|svg|webp)$/i,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[path][name].[ext]',
+              name: "[path][name].[ext]"
             }
           },
-          'image-webpack-loader?bypassOnDebug'
+          {
+            loader: "image-webpack-loader",
+            options: {
+              bypassOnDebug: true
+            }
+          }
         ]
       },
       {
         test: /\.(ttf|eot|woff2?|mp4|mp3|txt|xml)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[path][name].[ext]',
+              name: "[path][name].[ext]"
             }
-          },
+          }
         ]
       }
     ]
@@ -94,16 +89,34 @@ export default {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new ReloadPlugin(),
+    // new ReloadPlugin(),
     new HtmlWebpackPlugin({
-      template: './template.html',
-      filename: 'index.html',
-      chunks: ['script']
+      template: "./template.html",
+      filename: "index.html",
+      chunks: ["script"]
     }),
     new HtmlWebpackPlugin({
-      template: './template.html',
-      filename: 'another.html',
-      chunks: ['another_script']
-    })
-  ]
+      template: "./template.html",
+      filename: "another.html",
+      chunks: ["another_script"]
+    }),
+    // function(){
+    //   this.plugin('compilation', function(compilation) {
+    //     console.log('The compiler is starting a new compilation...');
+    //     console.log(this.options);
+
+    //   });
+    // }
+  ],
+  devServer: {
+    contentBase: srcDir,
+    publicPath: "/",
+    historyApiFallback: true,
+    compress: true,
+    open: true,
+    hot: true,
+    stats: "errors-only",
+    port: 3000,
+    openPage: ""
+  }
 };
